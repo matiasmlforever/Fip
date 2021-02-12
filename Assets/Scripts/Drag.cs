@@ -7,10 +7,11 @@ public class Drag : MonoBehaviour, IPointerDownHandler, IPointerClickHandler,
     IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
     [SerializeField] private Canvas canvas;
-
     private RectTransform rectTransform;
     private Vector2 beforeDragVector2;
     private CanvasGroup canvasGroup;
+
+    public bool sfx;
 
     public void resetPosition() {
         rectTransform.anchoredPosition = beforeDragVector2;
@@ -27,6 +28,10 @@ public class Drag : MonoBehaviour, IPointerDownHandler, IPointerClickHandler,
         beforeDragVector2 = rectTransform.anchoredPosition;
         canvasGroup.alpha = .6f;
         canvasGroup.blocksRaycasts = false;
+        if (sfx)
+        {
+            GetComponent<AudioSource>().Play();
+        }
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -40,6 +45,10 @@ public class Drag : MonoBehaviour, IPointerDownHandler, IPointerClickHandler,
         Debug.Log("Drag Ended");
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;
+        if (sfx)
+        {
+            GetComponent<AudioSource>().Stop();
+        }
 
     }
 

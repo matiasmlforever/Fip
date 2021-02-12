@@ -11,6 +11,7 @@ public class Drag : MonoBehaviour, IPointerDownHandler, IPointerClickHandler,
     private Vector2 beforeDragVector2;
     private CanvasGroup canvasGroup;
 
+    public int fipScaleReference;
     public bool sfx;
 
     public void resetPosition() {
@@ -42,7 +43,6 @@ public class Drag : MonoBehaviour, IPointerDownHandler, IPointerClickHandler,
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        Debug.Log("Drag Ended");
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;
         if (sfx)

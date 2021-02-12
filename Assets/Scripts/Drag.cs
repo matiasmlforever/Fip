@@ -17,6 +17,12 @@ public class Drag : MonoBehaviour, IPointerDownHandler, IPointerClickHandler,
     public void resetPosition() {
         rectTransform.anchoredPosition = beforeDragVector2;
     }
+
+    public void AlreadyAddedToHeart() {
+        this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
+        canvasGroup.blocksRaycasts = true;
+    }
+
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();

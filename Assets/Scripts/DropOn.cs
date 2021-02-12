@@ -1,21 +1,34 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class DropOn : MonoBehaviour, IDropHandler
 {
     private Drag fipDragComponent;
+    public int scaledTimes = 0;
+    public GameObject heartMessage;
     public void OnDrop(PointerEventData eventData)
     {
         Debug.Log("ON DROP");
         if (eventData.pointerDrag != null) {
             fipDragComponent = eventData.pointerDrag.GetComponent<Drag>();
-            if (fipDragComponent.fipScaleReference) { //TODO: add condition to trigger action
-}
-            else {
-                fipDragComponent.resetPosition();
+            fipDragComponent.AlreadyAddedToHeart();
+            fipDragComponent.resetPosition();
+            GetComponent<AudioSource>().Play();
+
+            if(scaledTimes < 5)
+            {
+                gameObject.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = gameObject.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta + new UnityEngine.Vector2(fipDragComponent.fipScaleReference, fipDragComponent.fipScaleReference); 
+                scaledTimes++;
             }
+
+            if (scaledTimes >= 5) {
+                heartMessage.SetActive(true);
+            }
+            
+            
         }
     }
 
